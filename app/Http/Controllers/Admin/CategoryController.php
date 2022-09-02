@@ -39,7 +39,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'name'  => 'required',
+            'image' => 'required|image',
+            'description' => 'required'
+        ]);
+        $validateData['image'] = $request->file('image')->store('public/categories');
+        
+        Category::create($validateData);
+
+        return to_route('admin.categories.index');
     }
 
     /**
