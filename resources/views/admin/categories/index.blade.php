@@ -25,6 +25,9 @@
                                 <th scope="col" class="py-3 px-6">
                                     Descriptions
                                 </th>
+                                <th scope="col" class="py-3 px-6">
+                                    Action
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,6 +45,22 @@
                                     <td scope="row"
                                         class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $category->description }}
+                                    </td>
+                                    <td scope="row"
+                                        class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <div class="flex space-x-2">
+                                            <a href="{{ route('admin.categories.edit', $category) }}"
+                                                class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">Edit</a>
+                                            <form class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
+                                                method="post"
+                                                action="{{ route('admin.categories.destroy', $category) }}"
+                                                onsubmit="return confirm('Are you sure?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit">Delete</button>
+                                            </form>
+                                        </div>
+
                                     </td>
                                 </tr>
                             @endforeach
