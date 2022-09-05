@@ -12,11 +12,12 @@
                     class="px-4 py-4 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">List Tables</a>
             </div>
             <div class="m-2 p-2">
-                <form action="{{ route('admin.tables.store') }}" method="POST">
+                <form action="{{ route('admin.tables.update', $table) }}" method="POST">
+                    @method('PUT')
                     @csrf
                     <div class="mb-6">
                         <label for="name" class="mb-2 block text-sm font-medium text-gray-900 ">Name</label>
-                        <input type="text" id="name" name="name"
+                        <input type="text" id="name" name="name" value="{{ $table->name }}"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
                     </div>
                     <div class="mb-6">
@@ -24,14 +25,15 @@
                             Number</label>
                         <input
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                            id="guest_number" name="guest_number" type="text" />
+                            id="guest_number" name="guest_number" type="text" value="{{ $table->guest_number }}" />
                     </div>
                     <div class="mb-6">
                         <label for="status" class="mb-2 block text-sm font-medium text-gray-900 ">Status</label>
                         <select name="status" id="status"
                             class="form-multiselect block w-full mt-1 border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                             @foreach (App\Enums\TableStatus::cases() as $status)
-                                <option value="{{ $status->value }}">{{ $status->name }}</option>
+                                <option value="{{ $status->value }}" @selected($table->status->value == $status->value)>
+                                    {{ $status->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -40,7 +42,8 @@
                         <select name="location" id="location"
                             class="form-multiselect block w-full mt-1 border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                             @foreach (App\Enums\TableLocation::cases() as $location)
-                                <option value="{{ $location->value }}">{{ $location->name }}</option>
+                                <option value="{{ $location->value }}" @selected($table->location->value == $location->value)>
+                                    {{ $location->name }}</option>
                             @endforeach
                         </select>
                     </div>

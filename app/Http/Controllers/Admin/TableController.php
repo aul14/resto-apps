@@ -16,7 +16,7 @@ class TableController extends Controller
     public function index()
     {
         $tables = Table::all();
-        return view('admin.tables.index',[
+        return view('admin.tables.index', [
             'tables' => $tables
         ]);
     }
@@ -39,7 +39,16 @@ class TableController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'name'  => 'required',
+            'guest_number'  => 'required',
+            'status'  => 'required',
+            'location'  => 'required',
+        ]);
+
+        Table::create($validateData);
+
+        return to_route('admin.tables.index');
     }
 
     /**
@@ -59,9 +68,9 @@ class TableController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Table $table)
     {
-        //
+        return view('admin.tables.edit', compact('table'));
     }
 
     /**
@@ -71,9 +80,18 @@ class TableController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Table $table)
     {
-        //
+        $validateData = $request->validate([
+            'name'  => 'required',
+            'guest_number'  => 'required',
+            'status'  => 'required',
+            'location'  => 'required',
+        ]);
+
+        $table->update($validateData);
+
+        return to_route('admin.tables.index');
     }
 
     /**
@@ -82,8 +100,10 @@ class TableController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Table $table)
     {
-        //
+        $table->delete();
+
+        return to_route('admin.tables.index');
     }
 }
