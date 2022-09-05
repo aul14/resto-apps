@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 
 class MenuController extends Controller
 {
@@ -16,7 +17,7 @@ class MenuController extends Controller
     public function index()
     {
         $menus = Menu::all();
-        return view('admin.menus.index',[
+        return view('admin.menus.index', [
             'menus' => $menus
         ]);
     }
@@ -28,7 +29,8 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('admin.menus.create');
+        $categories = Category::all();
+        return view('admin.menus.create', compact('categories'));
     }
 
     /**
@@ -39,7 +41,19 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'name'  => 'required',
+            'image' => 'required|image',
+            'description' => 'required',
+            'price' => 'required'
+        ]);
+        $validateData['image'] = $request->file('image')->store('public/menus');
+        $menu = Menu::create($validateData);
+        if ($request->has('categories')) {
+            $menu->categories()->attach($request->categories);
+        }
+
+        return to_route('admin.menus.index');
     }
 
     /**
