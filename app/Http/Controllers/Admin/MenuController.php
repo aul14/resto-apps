@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Menu;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 
 class MenuController extends Controller
 {
@@ -73,9 +74,10 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Menu $menu)
     {
-        //
+        $categories = Category::all();
+        return view('admin.menus.edit', compact('menu', 'categories'));
     }
 
     /**
@@ -85,9 +87,28 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Menu $menu)
     {
-        //
+        $validateData = $request->validate([
+            'name'  => 'required',
+            'description' => 'required',
+            'price' => 'required'
+        ]);
+
+        $image = $menu->image;
+
+        if ($request->hasFile('image')) {
+            Storage::delete($image);
+            $validateData['image'] =  $request->file('image')->store('public/menus');
+        }
+
+        $menu->update($validateData);
+
+        if ($request->has('categories')) {
+            $menu->categories()->sync($request->categories);
+        }
+
+        return to_route('admin.menus.index');
     }
 
     /**
@@ -96,8 +117,16 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Menu $menu)
     {
-        //
+        if ($menu->image) {
+            Storage::delete($menu->image);
+        }
+
+        // menu::destroy($category->id);
+        #CEK KE TABLE RELATIONSHIP 'CATEGORY MENU', JIKA ADA HAPUS DATANYA.
+        $menu->categories()->detach();
+        $menu->delete();
+        return to_route('admin.menus.index');
     }
 }
