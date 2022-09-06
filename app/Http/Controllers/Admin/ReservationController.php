@@ -6,6 +6,8 @@ use App\Models\Reservation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Table;
+use App\Rules\DateBetween;
+use App\Rules\TimeBetween;
 
 class ReservationController extends Controller
 {
@@ -46,7 +48,7 @@ class ReservationController extends Controller
             'last_name'     => 'required',
             'email'         => 'required|email',
             'tel_number'    => 'required',
-            'res_date'      => 'required',
+            'res_date'      => ['required', 'date', new DateBetween, new TimeBetween],
             'guest_number'  => 'required',
             'table_id'      => 'required',
         ]);
