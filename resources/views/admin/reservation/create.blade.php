@@ -17,45 +17,66 @@
                     <div class="mb-6">
                         <label for="first_name" class="mb-2 block text-sm font-medium text-gray-900 ">First Name</label>
                         <input type="text" id="first_name" name="first_name"
-                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
+                            class="block w-full rounded-lg border @error('first_name') border-red-300 @enderror bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 @error('first_name') dark:border-red-600 @enderror dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
+                        @error('first_name')
+                            <div class="text-sm text-red-500">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-6">
                         <label for="last_name" class="mb-2 block text-sm font-medium text-gray-900 ">Last Name</label>
                         <input type="text" id="last_name" name="last_name"
-                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
+                            class="block w-full rounded-lg border @error('last_name') border-red-300 @enderror bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 @error('last_name') dark:border-red-600 @enderror dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
+                        @error('last_name')
+                            <div class="text-sm text-red-500">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-6">
                         <label for="email" class="mb-2 block text-sm font-medium text-gray-900 ">Email</label>
                         <input type="email" id="email" name="email"
-                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
+                            class="block w-full rounded-lg border @error('email') border-red-300 @enderror bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 @error('email') dark:border-red-600 @enderror dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
+                        @error('email')
+                            <div class="text-sm text-red-500">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-6">
                         <label for="tel_number" class="mb-2 block text-sm font-medium text-gray-900 ">Phone
                             Number</label>
                         <input type="number" id="tel_number" name="tel_number"
-                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
+                            class="block w-full rounded-lg border @error('tel_number') border-red-300 @enderror bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 @error('tel_number') dark:border-red-600 @enderror dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
+                        @error('tel_number')
+                            <div class="text-sm text-red-500">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-6">
                         <label for="res_date" class="mb-2 block text-sm font-medium text-gray-900 ">Reservation
                             Date</label>
                         <input type="datetime-local" id="res_date" name="res_date"
-                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
+                            class="block w-full rounded-lg border @error('res_date') border-red-300 @enderror bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 @error('res_date') dark:border-red-600 @enderror dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
+                        @error('res_date')
+                            <div class="text-sm text-red-500">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-6">
                         <label class="mb-2 block text-sm font-medium text-gray-900 " for="guest_number">Guest
                             Number</label>
                         <input
-                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                            class="block w-full rounded-lg border @error('guest_number') border-red-300 @enderror bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 @error('guest_number') dark:border-red-600 @enderror dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                             id="guest_number" name="guest_number" type="text" />
+                        @error('guest_number')
+                            <div class="text-sm text-red-500">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-6">
                         <label for="table_id" class="mb-2 block text-sm font-medium text-gray-900 ">Table</label>
                         <select name="table_id" id="table_id"
-                            class="form-multiselect block w-full mt-1 border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                            class="form-multiselect block w-full rounded-lg border @error('table_id') border-red-300 @enderror bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 @error('table_id') dark:border-red-600 @enderror dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                             @foreach ($tables as $table)
                                 <option value="{{ $table->id }}">{{ $table->name }}</option>
                             @endforeach
                         </select>
+                        @error('table_id')
+                            <div class="text-sm text-red-500">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mt-3">
