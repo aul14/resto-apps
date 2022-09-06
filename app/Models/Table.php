@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use App\Enums\TableLocation;
 use App\Enums\TableStatus;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Reservation;
+use App\Enums\TableLocation;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Table extends Model
 {
@@ -15,4 +16,9 @@ class Table extends Model
         'status'    => TableStatus::class,
         'location'    => TableLocation::class
     ];
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }
