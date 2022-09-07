@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Table;
 use App\Rules\DateBetween;
 use App\Rules\TimeBetween;
+use Carbon\Carbon;
 
 class ReservationController extends Controller
 {
@@ -52,6 +53,17 @@ class ReservationController extends Controller
             'guest_number'  => 'required',
             'table_id'      => 'required',
         ]);
+
+        $table = Table::findOrFail($request->table_id);
+        if ($request->guest_number <> $table->guest_number) {
+            return back()->with('warning', 'Please choose the table base on guests.')->withInput();
+        }
+        $request_date = Carbon::parse($request->res_date);
+        foreach ($table->reservations as $key => $res) {
+            if ($res->res_date->format('Y-m-d') == $request_date->format('Y-m-d')) {
+                return back()->with('warning', 'This table is reserved for this date.')->withInput();
+            }
+        }
 
         Reservation::create($validateData);
 
