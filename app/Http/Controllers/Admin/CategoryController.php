@@ -17,7 +17,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('admin.categories.index',[
+        return view('admin.categories.index', [
             'categories' => $categories
         ]);
     }
@@ -46,10 +46,10 @@ class CategoryController extends Controller
             'description' => 'required'
         ]);
         $validateData['image'] = $request->file('image')->store('public/categories');
-        
+
         Category::create($validateData);
 
-        return to_route('admin.categories.index');
+        return to_route('admin.categories.index')->with('success', 'Category created successfully');
     }
 
     /**
@@ -95,7 +95,7 @@ class CategoryController extends Controller
 
         $category->update($validateData);
 
-        return to_route('admin.categories.index');
+        return to_route('admin.categories.index')->with('success', 'Category updated successfully');
     }
 
     /**
@@ -112,6 +112,6 @@ class CategoryController extends Controller
 
         // Category::destroy($category->id);
         $category->delete();
-        return to_route('admin.categories.index');
+        return to_route('admin.categories.index')->with('danger', 'Category deleted successfully');
     }
 }
