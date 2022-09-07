@@ -109,7 +109,7 @@ class CategoryController extends Controller
         if ($category->image) {
             Storage::delete($category->image);
         }
-
+        $category->menus()->detach();
         // Category::destroy($category->id);
         $category->delete();
         return to_route('admin.categories.index')->with('danger', 'Category deleted successfully');
