@@ -49,7 +49,7 @@
                                     </td>
                                     <td scope="row"
                                         class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $reservation->res_date }}
+                                        {{ $reservation->res_date->format('d-M-Y H:i') }}
                                     </td>
                                     <td scope="row"
                                         class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -62,7 +62,16 @@
                                     <td scope="row"
                                         class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         <div class="flex space-x-2">
-                                            Edit
+                                            <a href="{{ route('admin.reservation.edit', $reservation) }}"
+                                                class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">Edit</a>
+                                            <form class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
+                                                method="post"
+                                                action="{{ route('admin.reservation.destroy', $reservation) }}"
+                                                onsubmit="return confirm('Are you sure?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit">Delete</button>
+                                            </form>
                                         </div>
 
                                     </td>
