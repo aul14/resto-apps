@@ -142,8 +142,10 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Reservation $reservation)
     {
-        //
+        $reservation->delete();
+
+        return to_route('admin.reservation.index')->with('warning', 'Reservation deleted successfully');
     }
 }
