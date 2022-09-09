@@ -56,7 +56,7 @@ class ReservationController extends Controller
         ]);
 
         $table = Table::findOrFail($request->table_id);
-        if ($request->guest_number <> $table->guest_number) {
+        if ($request->guest_number >= $table->guest_number) {
             return back()->with('warning', 'Please choose the table base on guests.')->withInput();
         }
         $request_date = Carbon::parse($request->res_date);
@@ -120,7 +120,7 @@ class ReservationController extends Controller
 
         $table = Table::findOrFail($request->table_id);
 
-        if ($request->guest_number <> $table->guest_number) {
+        if ($request->guest_number >= $table->guest_number) {
             return back()->with('warning', 'Please choose the table base on guests.')->withInput();
         }
         $reservations = $table->reservations()->where('id', '!=', $reservation->id)->get();
